@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/repo-list/repolist",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/repo-detail/repoDetail"
+  ],
+  "tabBar": {
+    "selectedColor": "#333333",
+    "color": "#cccccc",
+    "list": [
+      {
+        "pagePath": "pages/repo-list/repolist",
+        "iconPath": "/pages/image/repoicon.png",
+        "selectedIconPath": "/pages/image/repoIconSelect.png",
+        "text": "仓库"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "iconPath": "/pages/image/message.png",
+        "selectedIconPath": "/pages/image/messageSelect.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "/pages/image/user.png",
+        "selectedIconPath": "/pages/image/userSelect.png",
+        "text": "我"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  }
+}

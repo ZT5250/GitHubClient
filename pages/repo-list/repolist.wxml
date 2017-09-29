@@ -1,0 +1,32 @@
+<view class=" repo-list">
+  <input style="position:fixed;top:0px;left:0px;padding-left:20px;padding-right:20px;width:calc( 99% - 60px );color:#3e3e3e;background-color:#f9f9f9;height:40px;line-height:40px;vertical-align:middle;border-radius:4px;z-index:5;opacity:{{inputOpacity}};"
+    bindinput="bindKeyInput" placeholder="输入关键字" />
+  <view bindtap='searchRepoList' style="position:fixed;right:0px;z-index:6;height:40px;line-height:40px;vertical-align:middle;background-color:#3e3e3e;width:60px;">
+    <icon type="search" color='#ffffff' style="position:absolute;top:7px;right:15px;" size="26" />
+  </view>
+
+  <scroll-view scroll-y style="height:{{scrollHeight}};margin-top:45px;" enable-back-to-top="true" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" scroll-with-animation="true">
+    <block wx:for="{{repolist}}" wx:for-item="repo" wx:key="id">
+      <view class="repo-item" bindtap='showRepoDetail' id="{{repo.url+';'+repo.full_name}}" hover-class="repo-hover">
+        <view style="margin-bottom:5px;font-size:16px;">{{repo.full_name}}</view>
+        <view style="margin-bottom:5px;">{{repo.name}}</view>
+
+        <view class="flex-wrap" style="display:flex;font-size:12px;">
+          <view class="labelText">
+            language : {{repo.language==null?"其他":repo.language}}</view>
+          <view class="labelText">
+            star : {{repo.stargazers_count}}</view>
+          <view class="labelText">
+            fork : {{repo.forks}}</view>
+        </view>
+        <text style="display:flex;font-size:12px;margin-bottom:20px;">
+        {{repo.description}}
+        </text>
+        <view style="display:flex;">
+          <image style="flex-direction: row;width: 25px; height: 25px;border:solid 1px #cccccc;border-top-left-radius:4px;border-bottom-left-radius:4px;" lazy-load="true" src="{{repo.owner.avatar_url}}"></image>
+          <view style="flex-direction: row;margin-bottom:5px;font-size:14px;vertical-align:middle;line-height:25px;height:25px;border-top:solid 1px #CCCCCC;border-right:solid 1px #cccccc;border-bottom:solid 1px #cccccc;padding-left:8px;padding-right:8px;border-top-right-radius:4px;border-bottom-right-radius:4px;">{{repo.owner.login}}</view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+</view>

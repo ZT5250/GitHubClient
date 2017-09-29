@@ -1,0 +1,41 @@
+.repo-list{
+  display: flex;
+  width:100%;
+  height:100%;
+  background-color: #f5f5f5;
+  padding-bottom: 10px;
+}
+
+.repo-item{
+  width:90%;
+  margin-left:2.7%;
+  padding:8px;
+  box-shadow: 2px 2px 2px #cccccc;
+  border-radius:10px;
+  margin-bottom:20px;
+  overflow: auto;
+  text-align: bottom;
+  zoom: 1;
+  background-color: #ffffff;
+}
+.repo-hover{
+  box-shadow: 3px 3px 15px #cccccc;
+}
+
+
+.clearFix{
+  overflow: auto;
+  text-align: bottom;
+  zoom: 1;
+}
+
+.labelText{
+  flex-direction: row;
+  padding:2px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: solid 1px #cccccc;
+  border-radius:2px;
+  color:#888888;
+  margin:10px 10px 0px 0px;
+}

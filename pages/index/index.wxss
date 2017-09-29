@@ -1,0 +1,35 @@
+/**index.wxss**/
+.userinfo {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  width: 90%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+
+.loginInput{
+  margin-bottom: 10px;
+  background-color: #f8f8f8;
+  width:100%;
+  height: 40px;
+  line-height: 40px;
+  vertical-align: middle;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+
+.loginBtn{
+  float: right;
+  width:100%;
+}

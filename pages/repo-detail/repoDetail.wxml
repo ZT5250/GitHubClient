@@ -1,0 +1,22 @@
+<!-- // 引入模板 -->
+<import src="/wxParse/wxParse.wxml" />
+
+<view class="repoContainer">
+  <view class="repoHeader" style="min-height:{{headerHeight}};height{{headerHeight}}">
+    <text class="repoFullName" style="font-size:30px;margin-top:10px;margin-bottom:10px;">{{repoFullName}}</text>
+    <view class="clearFix"></view>
+    <image style="width: 25px; height: 25px;border-radius:50%;margin-right:20px;" lazy-load="true" src="{{ownerPic}}"></image>
+    <text>{{ownerName}}</text>
+    <view class="clearFix"></view>
+  </view>
+
+  <view class="repoReadMe">
+    <!-- //这里data中article为bindName -->
+    <template is="wxParse" data="{{wxParseData:readme.nodes}}" />
+  </view>
+
+  <view class="repFooter">
+    <button loading="{{starLoading}}" disabled="{{starDisable}}" class="footerTab" bindtap='performClickStar' data-status="{{starStatus}}">{{starStatus==0?"star":"unstar"}} {{stargazersCount}}</button> 
+    <button class="footerTab" loading="{{watchLoading}}" disabled="{{watchDisable}}"  bindtap="performClickWatch" data-status="{{watchStatus}}">{{watchStatus==0?"watch":"unwatch"}} {{watchCount}}</button>
+  </view>
+</view>

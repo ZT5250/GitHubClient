@@ -1,0 +1,21 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+      <view style="width:100%;text-align:center;">
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      </view>
+      <view wx:if="{{basicAuthization && oauthToken}}" style="width:100%;text-align:center;">
+          <!-- 已登录， -->
+          已经登录GitHub
+      </view>
+      <block wx:else>
+        <!-- 未登录 -->
+        <input class='loginInput' bindinput='updateName' placeholder='username' value='{{gitHubUserName}}' />
+        <br/>
+        <input class='loginInput' bindinput='updatePassword' placeholder='password' value='{{gitHubUserPassword}}' password />
+        <br/>
+        <button type='primary' class='loginBtn' bindtap='loginGitHub'>log in</button>
+      </block>
+      
+  </view>
+</view>
