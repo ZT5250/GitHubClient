@@ -22,7 +22,14 @@ Page({
     })
     this.loadRepoList(queryKey);
   },
-  lower: function (e) {
+  onPullDownRefresh:function(e){
+    wx.showLoading({
+      title: '加载中',
+    })
+    page = 1;
+    this.loadRepoList(queryKey);
+  },
+  onReachBottom:function(){
     page++;
     this.loadRepoList(queryKey);
   },
@@ -101,10 +108,10 @@ Page({
       success: function (res) {
         console.log(res.model)
         console.log(res.pixelRatio)
-        console.log(res.windowWidth)
-        console.log(res.windowHeight)
+        console.log(res.screenHeight)
+        console.log(res.screenWidth)
         appContent.setData({
-          scrollHeight: (res.windowHeight - 55) + "px"
+          scrollHeight: (res.screenHeight - 50) + "px"
         });
         console.log(res.language)
         console.log(res.version)

@@ -1,3 +1,8 @@
 {
-    "navigationBarTitleText": "github-repository"
+    "navigationBarTitleText": "github-repository",
+    "window": {
+      "navigationBarBackgroundColor": "#ffffff",
+      "navigationBarTextStyle": "black",
+      "enablePullDownRefresh": true
+    }
 }

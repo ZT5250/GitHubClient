@@ -47,7 +47,7 @@ Page({
       return
     }
     var tokenParams = app.globalData.createTokenParams
-    tokenParams.note = "wechatApp-"+util.formatTime(new Date())
+    tokenParams.note = "wechatApp-" + util.formatTime(new Date())
 
     const basicAuthor = "Basic " + util.base64Encode(this.data.gitHubUserName + ":" + this.data.gitHubUserPassword)
     console.log(this.data.gitHubUserName + ":" + this.data.gitHubUserPassword);
@@ -70,7 +70,7 @@ Page({
         if (resDataBean.token) {
           wx.hideLoading()
           wx.setStorageSync("basicToken", basicAuthor);
-          wx.setStorageSync("AuthToken", "token "+resDataBean.token);
+          wx.setStorageSync("AuthToken", "token " + resDataBean.token);
           thisCxt.setData({
             basicAuthization: basicAuthor,
             oauthToken: resDataBean.token
@@ -87,8 +87,21 @@ Page({
       }
     })
   },
+  myRepositories: function () {
+    wx.navigateTo({
+      url: '../personal/myRepositories/myRepolist',
+    })
+  },
+  myStars: function () {
+    wx.navigateTo({
+      url: '../personal/myStars/myStarList',
+    })
+  },
+  userLogOut:function(res){
+
+  },
   onLoad: function () {
-    
+
     thisCxt = this
     //从本地存储中获取basic auth数据
     const basicAuthization = wx.getStorageSync('basicToken') || null
@@ -114,6 +127,7 @@ Page({
         success: function (res) {
           wx.hideLoading()
           console.dir(res);
+          wx.setStorageSync("userName", res.data.login);
           thisCxt.setData({
             userInfo: {
               avatarUrl: res.data.avatar_url
@@ -121,7 +135,7 @@ Page({
           })
         }
       })
-    } 
+    }
   }
 
 })

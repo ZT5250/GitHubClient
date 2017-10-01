@@ -313,8 +313,6 @@ Page({
           "Authorization": authoToken
         },
         success: function (res) {
-          console.log("========");
-          console.dir(res);
           wx.hideLoading()
           const ownerInfo = res.data.owner
           const repoBean = res.data
@@ -376,23 +374,44 @@ Page({
     detailCtx.checkIsWatchRepo()
 
     //获取仓库详情信息
-    wx.request({
-      url: detailUrl,
-      success: function (res) {
-        console.log("========");
-        console.dir(res);
-        wx.hideLoading()
-        const ownerInfo = res.data.owner
-        const repoBean = res.data
-        detailCtx.setData({
-          ownerName: ownerInfo.login,
-          ownerPic: ownerInfo.avatar_url,
-          repoInfo: repoBean,
-          stargazersCount: repoBean.stargazers_count,
-          watchCount: repoBean.subscribers_count
-        })
-      }
-    })
+    if (oauthTokenValue){
+      
+      wx.request({
+        url: detailUrl,
+        header: {
+          "Authorization": oauthTokenValue
+        },
+        success: function (res) {
+          wx.hideLoading()
+          const ownerInfo = res.data.owner
+          const repoBean = res.data
+          detailCtx.setData({
+            ownerName: ownerInfo.login,
+            ownerPic: ownerInfo.avatar_url,
+            repoInfo: repoBean,
+            stargazersCount: repoBean.stargazers_count,
+            watchCount: repoBean.subscribers_count
+          })
+        }
+      })
+    }else{
+      wx.request({
+        url: detailUrl,
+        success: function (res) {
+          wx.hideLoading()
+          const ownerInfo = res.data.owner
+          const repoBean = res.data
+          detailCtx.setData({
+            ownerName: ownerInfo.login,
+            ownerPic: ownerInfo.avatar_url,
+            repoInfo: repoBean,
+            stargazersCount: repoBean.stargazers_count,
+            watchCount: repoBean.subscribers_count
+          })
+        }
+      })
+    }
+    
 
     /**
 * WxParse.wxParse(bindName , type, data, target,imagePadding)
@@ -406,7 +425,6 @@ Page({
     wx.request({
       url: readMeUrl,
       success: function (res) {
-        console.dir(res);
         if (res.statusCode == 200) {
           if (res.data) {
             WxParse.wxParse('readme', 'md', res.data, detailCtx, 5);

@@ -1,9 +1,4 @@
 <view class=" repo-list">
-  <input style="position:fixed;top:0px;left:0px;padding-left:20px;padding-right:20px;width:100%;color:#3e3e3e;background-color:#f9f9f9;height:40px;line-height:40px;vertical-align:middle;border-radius:4px;z-index:5;opacity:{{inputOpacity}};border-bottom:#cccccc;"
-    bindinput="bindKeyInput" placeholder="输入关键字" />
-  <view bindtap='searchRepoList' style="position:fixed;top:0px;right:0px;z-index:6;height:40px;line-height:40px;vertical-align:middle;width:60px;">
-    <icon type="search" color='#24292e' style="position:absolute;top:7px;right:15px;" size="26" />
-  </view>
 
     <block wx:for="{{repolist}}" wx:for-item="repo" wx:key="id">
       <view class="repo-item" bindtap='showRepoDetail' id="{{repo.url+';'+repo.full_name}}" hover-class="repo-hover">
