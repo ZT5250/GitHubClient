@@ -7,7 +7,10 @@ Page({
   data: {
     motto: 'Hello World',
     userInfo: {
-      avatarUrl: "../image/githublogo.png"
+      avatarUrl: "../image/githublogo.png",
+      publicRepoCount: 0,
+      followerCount: 0,
+      followingCount: 0
     },
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -51,7 +54,8 @@ Page({
 
     const basicAuthor = "Basic " + util.base64Encode(this.data.gitHubUserName + ":" + this.data.gitHubUserPassword)
     console.log(this.data.gitHubUserName + ":" + this.data.gitHubUserPassword);
-    const authUrl = app.globalData.gitHubApiBaseUrl + "/authorizations"
+    const baseUrl = app.globalData.gitHubApiBaseUrl;
+    const authUrl = baseUrl+ "/authorizations"
     util.formatTime(new Date())
     wx.request({
       url: authUrl,
@@ -62,8 +66,6 @@ Page({
       },
       data: tokenParams,
       success: function (res) {
-
-        console.dir(res);
         const resData = res.data;
         const resDataBean = JSON.parse(resData);
         console.dir(resDataBean);
@@ -75,6 +77,24 @@ Page({
             basicAuthization: basicAuthor,
             oauthToken: resDataBean.token
           });
+          //获取用户信息
+          wx.request({
+            url: baseUrl + "/user",
+            header: {
+              "Authorization": basicAuthor
+            },
+            success: function (res) {
+              wx.setStorageSync("userName", res.data.login);
+              thisCxt.setData({
+                userInfo: {
+                  avatarUrl: res.data.avatar_url,
+                  publicRepoCount: res.data.public_repos,
+                  followerCount: res.data.followers,
+                  followingCount: res.data.following
+                },
+              })
+            }
+          })
         } else {
           wx.showToast({
             title: '用户名或密码错误',
@@ -97,7 +117,45 @@ Page({
       url: '../personal/myStars/myStarList',
     })
   },
-  userLogOut:function(res){
+  myFollowers: function (option) {
+    wx.navigateTo({
+      url: '../followers/users',
+    })
+  },
+  myFollowings: function (option) {
+    wx.navigateTo({
+      url: '../followings/users',
+    })
+  },
+  onReady: function () {
+    //从本地存储中获取basic auth数据
+    const basicAuthization = wx.getStorageSync('basicToken') || null
+    const baseUrl = app.globalData.gitHubApiBaseUrl
+    if (basicAuthization) {
+      wx.showLoading({
+        title: 'log in',
+      })
+      //获取用户信息
+      wx.request({
+        url: baseUrl + "/user",
+        header: {
+          "Authorization": basicAuthization
+        },
+        success: function (res) {
+          wx.hideLoading()
+          console.dir(res);
+          wx.setStorageSync("userName", res.data.login);
+          thisCxt.setData({
+            userInfo: {
+              avatarUrl: res.data.avatar_url,
+              publicRepoCount: res.data.public_repos,
+              followerCount: res.data.followers,
+              followingCount: res.data.following
+            },
+          })
+        }
+      })
+    }
 
   },
   onLoad: function () {
@@ -119,6 +177,7 @@ Page({
       wx.showLoading({
         title: 'log in',
       })
+      //获取用户信息
       wx.request({
         url: baseUrl + "/user",
         header: {
@@ -130,7 +189,10 @@ Page({
           wx.setStorageSync("userName", res.data.login);
           thisCxt.setData({
             userInfo: {
-              avatarUrl: res.data.avatar_url
+              avatarUrl: res.data.avatar_url,
+              publicRepoCount: res.data.public_repos,
+              followerCount: res.data.followers,
+              followingCount: res.data.following
             },
           })
         }

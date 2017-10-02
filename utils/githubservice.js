@@ -10,7 +10,19 @@ const userRepoListUrl = login => {
   return baseurl + "users/" + login + "/repos";
 }
 
+//获取制定用户的follower列表
+const userFollowerListUrl = login => {
+  return baseurl + "users/" + login + "/followers";
+}
+
+//获取制定用户的followings列表
+const userFollowingListUrl = login => {
+  return baseurl + "users/" + login + "/following";
+}
+
 module.exports = {
   userStarUrl: userStarListUrl,
-  userRepoUrl : userRepoListUrl
+  userRepoUrl : userRepoListUrl,
+  userFollowersUrl: userFollowerListUrl,
+  userFollowingsUrl: userFollowingListUrl
 }

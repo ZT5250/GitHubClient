@@ -5,7 +5,9 @@
     "pages/logs/logs",
     "pages/repo-detail/repoDetail",
     "pages/personal/myRepositories/myRepolist",
-    "pages/personal/myStars/myStarList"
+    "pages/personal/myStars/myStarList",
+    "pages/followers/users",
+    "pages/followings/users"
   ],
   "tabBar": {
     "selectedColor": "#333333",
@@ -33,7 +35,7 @@
   },
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true

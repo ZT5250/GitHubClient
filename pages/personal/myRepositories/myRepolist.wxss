@@ -10,7 +10,7 @@
   width:90%;
   margin-left:2.7%;
   padding:8px;
-  box-shadow: 1px 1px 1px #cccccc;
+  box-shadow: 1px 1px 6px #cccccc;
   margin-top:10px;
   margin-bottom:10px;
   background-color: #ffffff;

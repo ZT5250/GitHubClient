@@ -1,39 +1,48 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <view style="width:100%;text-align:center;">
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    </view>
-    <view wx:if="{{basicAuthization && oauthToken}}" style="width:100%;text-align:center;">
-      <view style="display:flex;flex-wrap:wrap;width:100%;">
-      
-        <view class="personalLabel" bindtap='myRepositories'>
-          repositories
-        </view>
-        <view  class="personalLabel" bindtap='myStars'>
-          star
-        </view>
-        <view  class="personalLabel" bindtap='myFollowers'>
-          follower
-        </view>
-        <view  class="personalLabel" bindtap='myFollowings'>
-          following
-        </view>
-
-        <view class="logoutbtn" bindtap='userLogOut'>
-          <image style="width: 27px; height: 27px" src="../image/logout.png" ></image>
-        </view>
-      </view>
-    </view>
-
-    <block wx:else>
-      <!-- 未登录 -->
-      <input class='loginInput' bindinput='updateName' placeholder='username' value='{{gitHubUserName}}' />
-      <br/>
-      <input class='loginInput' bindinput='updatePassword' placeholder='password' value='{{gitHubUserPassword}}' password />
-      <br/>
-      <button type='primary' class='loginBtn' bindtap='loginGitHub'>log in</button>
-    </block>
-
+<view class="userinfo">
+  <view class="profileHeader">
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
   </view>
+
+  <view wx:if="{{basicAuthization && oauthToken}}" style="width:100%;text-align:center;">
+    <view style="display:flex;flex-wrap:wrap;width:100%;margin-top:20px;">
+
+      <view class="personalLabel" bindtap='myRepositories'>
+        <view class="labelItem" style="width:78px;border-right:solid 1px #f2f2f2;">
+        <image src='../image/repositories.png' style="width:35px;height:35px;position:relative;top:10px;"></image>
+        </view>
+        <view class="labelItem" style="padding-left:10px;width:calc(100% - 78px );text-align:left;">repositories {{userInfo.publicRepoCount}}</view>
+      </view>
+      <view class="personalLabel" bindtap='myStars'>
+        <view class="labelItem" style="width:78px;border-right:solid 1px #f2f2f2;">
+        <image src='../image/stars.png' style="width:35px;height:35px;position:relative;top:10px;"></image>
+        </view>
+        <view class="labelItem" style="padding-left:10px;width:calc(100% - 78px );text-align:left;">star</view>
+      </view>
+      <view class="personalLabel" bindtap='myFollowers'>
+        <view class="labelItem" style="width:78px;border-right:solid 1px #f2f2f2;">
+        <image src='../image/followers.png' style="width:36px;height:35px;position:relative;top:10px;"></image>
+        </view>
+        <view class="labelItem" style="padding-left:10px;width:calc(100% - 78px );text-align:left;">follower {{userInfo.followerCount}}</view>
+      </view>
+      <view class="personalLabel" bindtap='myFollowings'>
+        <view class="labelItem" style="width:78px;border-right:solid 1px #f2f2f2;">
+        <image src='../image/followings.png' style="padding-left:5px;width:36px;height:35px;position:relative;top:10px;"></image>
+        </view>
+        <view class="labelItem" style="width:calc(100% - 78px );text-align:left;padding-left:10px;">following {{userInfo.followingCount}}</view>
+      </view>
+
+
+    </view>
+  </view>
+
+  <block wx:else>
+    <!-- 未登录 -->
+    <input class='loginInput' bindinput='updateName' placeholder='username' value='{{gitHubUserName}}' />
+    <br/>
+    <input class='loginInput' bindinput='updatePassword' placeholder='password' value='{{gitHubUserPassword}}' password />
+    <br/>
+    <button type='primary' class='loginBtn' bindtap='loginGitHub'>log in</button>
+  </block>
+
 </view>

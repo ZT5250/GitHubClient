@@ -27,6 +27,9 @@ Page({
       title: '加载中',
     })
     page = 1;
+    this.setData({
+      repolist: []
+    })
     this.loadRepoList(queryKey);
   },
   onReachBottom:function(){

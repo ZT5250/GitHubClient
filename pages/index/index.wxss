@@ -1,5 +1,9 @@
 /**index.wxss**/
-
+.profileHeader{
+  width:100%;text-align:center;
+  box-shadow: 1px 1px 5px #cccccc;
+  height: auto;
+}
 .userinfo {
   /* display: flex;
   flex-direction: column;
@@ -13,12 +17,12 @@
 .userinfo-avatar {
   width: 128rpx;
   height: 128rpx;
-  margin: 20rpx;
   border-radius: 50%;
-  margin-bottom: 10px;
+  margin:10px auto;
 }
 
 .loginInput {
+  margin-top: 15px;
   margin-bottom: 10px;
   background-color: #f8f8f8;
   width: 90%;
@@ -37,19 +41,28 @@
 }
 
 .personalLabel {
+  display: flex;
+  flex-wrap:wrap;
   flex-direction: column;
-  width: 50%;
+  width: 90%;
+  margin-left:5%;
+  margin-bottom:15px;
   text-align: center;
-  height: 60px;
-  line-height: 60px;
+  height: 90px;
+  line-height: 90px;
   vertical-align: middle;
   border: solid 1px #f7f7f7;
   background-color: #fefefe;
   box-sizing: border-box;
+  box-shadow: 1px 1px 6px #cccccc;
+  
+}
+.labelItem{
+  flex-direction: row;
+  height:90px;
+  line-height: 90px;
+  vertical-align: middle;
+  box-sizing: border-box;
 }
 
-.logoutbtn {
-  position: fixed;
-  top:10px;
-  right:10px;
-}
+

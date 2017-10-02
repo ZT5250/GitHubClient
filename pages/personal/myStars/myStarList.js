@@ -121,6 +121,9 @@ Page({
    */
   onPullDownRefresh: function () {
     page = 1;
+    this.setData({
+      repolist: []
+    })
     pageCtx.loadRepoList();
   },
 
