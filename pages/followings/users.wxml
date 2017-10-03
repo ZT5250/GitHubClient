@@ -1,18 +1,18 @@
 <view class="userList">
 
-<block wx:for="{{userList}}" wx:for-item="user" wx:key="id">
-  <view class="userItem">
-    <view class="userPic">
-      <view class="userPicItem">
-        <image class="userImg" src="{{user.avatar_url}}"></image>
-      </view>
-      <view class="userPicItem">
-        <view style="display:flex;flex-wrap:wrap;">
-          <view style="flex:column;width:100%;text-align: center;">{{user.login}}</view>
+  <block wx:for="{{userList}}" wx:for-item="user" wx:key="id">
+    <view class="userItem" bindtap='showUserInfo' data-ownername="{{user.login}}">
+      <view class="userPic">
+        <view class="userPicItem">
+          <image class="userImg" src="{{user.avatar_url}}"></image>
+        </view>
+        <view class="userPicItem">
+          <view style="display:flex;flex-wrap:wrap;">
+            <view style="flex:column;width:100%;text-align: center;">{{user.login}}</view>
+          </view>
         </view>
       </view>
     </view>
-  </view>
-</block>
+  </block>
 
 </view>

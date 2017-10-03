@@ -1,6 +1,7 @@
 var page = 1, perpage = 3;
 const githubService = require("../../../utils/githubservice.js")
 const app = getApp();  //获取微信小程序实例
+var requestTask = null
 var pageCtx = null;
 Page({
 
@@ -34,7 +35,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '加载中',
     })
-    wx.request({
+    requestTask = wx.request({
       url: pageCtx.data.starUrl + "?page=" + page + "&per_page=" + perpage,
       header: {
         "Authorization": oauthToken
@@ -99,14 +100,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    requestTask = null;
+    pageCtx = this;
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    if (requestTask != null) { requestTask.abort() }
   },
 
   /**

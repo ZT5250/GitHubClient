@@ -1,0 +1,144 @@
+/* pages/personal/userprofile/userprofile.wxss */
+page{
+background-color:#f9f9f9;
+}
+.profileHeader {
+  display: flex;
+  flex-wrap: wrap;
+  height: 50px;
+  box-shadow: 2px 2px 10px #ccc;
+  background-color: #fff;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.tabHeader {
+  height: 50px;
+  line-height: 50px;
+  width: 25%;
+  text-align: center;
+  vertical-align: middle;
+  flex-direction: row;
+  box-sizing: border-box;
+  color:#cccccc;
+}
+
+/* .repoTab {
+  color: #396;
+  border-bottom: solid 1px #396;
+}
+
+.starTab {
+  color: #efb336;
+  border-bottom: solid 1px #efb336;
+}
+
+.followerTab {
+  color: #d81e06;
+  border-bottom: solid 1px #d81e06;
+}
+
+.followingTab {
+  color: #1296db;
+  border-bottom: solid 1px #1296db;
+} */
+
+.activeTab {
+  color:#396;
+  font-weight: bold;
+  border-bottom: solid 3px #396;
+}
+
+.scrollContainer {
+  box-sizing: border-box;
+}
+
+
+.repo-list{
+  display: flex;
+  width:100%;
+  background-color: #f9f9f9;
+  padding-bottom: 10px;
+  padding-top:40px;
+  flex-wrap: wrap;
+}
+
+.repo-item{
+  width:90%;
+  margin-left:2.3%;
+  padding:8px;
+  margin-top:10px;
+  margin-bottom:10px;
+  background-color: #ffffff;
+  flex-direction: column;
+}
+.repo-hover{
+  box-shadow: 2px 2px 8px #cccccc;
+}
+
+
+.clearFix{
+  overflow: auto;
+  text-align: bottom;
+  zoom: 1;
+}
+
+.labelText{
+  flex-direction: row;
+  padding:2px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: solid 1px #cccccc;
+  border-radius:2px;
+  color:#888888;
+  margin:10px 10px 0px 0px;
+}
+
+
+.userList{
+  width:100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position:relative;
+  background-color: #f9f9f9;
+}
+.userPic{
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  position:relative;
+}
+
+.userItem{
+  width: 44%;
+  margin-left:3%;
+  flex-direction: row;
+  margin-top:20px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.userImg{
+  width:48px;height:48px;
+  border-radius: 50%;
+  /* border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%; */
+  box-sizing: border-box;
+  box-shadow:1px 1px 1px #cccccc;
+  position: relative;
+  margin-top: 10px;
+}
+
+.userPicItem{
+  flex-direction: row;
+  width:100%;
+  text-align: center;
+  height:48px;
+  line-height: 48px;
+  vertical-align: middle;
+  box-sizing: border-box;
+  color:#3e3e3e;
+  margin:10px auto;
+}

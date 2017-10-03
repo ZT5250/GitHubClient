@@ -5,8 +5,9 @@
   <view class="repoHeader" style="min-height:{{headerHeight}};height{{headerHeight}}">
     <text class="repoFullName" style="font-size:30px;margin-top:10px;margin-bottom:10px;">{{repoFullName}}</text>
     <view class="clearFix"></view>
-    <image style="width: 25px; height: 25px;border-radius:50%;margin-right:20px;" lazy-load="true" src="{{ownerPic}}"></image>
-    <text>{{ownerName}}</text>
+
+    <image bindtap='showUserInfo' style="width: 25px; height: 25px;border-radius:50%;margin-right:20px;" lazy-load="true" src="{{ownerPic}}"></image>
+    <text bindtap='showUserInfo'>{{ownerName}}</text>
     <view class="clearFix"></view>
   </view>
 

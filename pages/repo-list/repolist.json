@@ -3,6 +3,7 @@
     "window": {
       "navigationBarBackgroundColor": "#ffffff",
       "navigationBarTextStyle": "black",
-      "enablePullDownRefresh": true
+      "enablePullDownRefresh": true,
+      "backgroundColor": "#f9f9f9"
     }
 }

@@ -2,6 +2,7 @@ const WxParse = require('../../wxParse/wxParse.js');
 const util = require('../../utils/util.js')
 const appInstance = getApp()
 var detailCtx = null
+var rTaskList = []
 Page({
   data: {
     repoUrl: null,
@@ -24,6 +25,15 @@ Page({
     watchLoading: false,
     headerHeight: "120px"
   },
+  showUserInfo:function(res){
+    const name = this.data.ownerName;
+    wx.navigateTo({
+      url: '../personal/userprofile/userprofile?userName=' + name,
+    })
+  },
+  onShow:function(res){
+    detailCtx = this;
+  },
   onPageScroll: function (e) {
     if (e.scrollTop < 130) {
       wx.setNavigationBarTitle({
@@ -40,7 +50,7 @@ Page({
 
     const checkWatch = this.data.watchUrl
     if (this.data.authoToken) {
-      wx.request({
+      rTaskList.push(wx.request({
         url: checkWatch,
         header: {
           "Authorization": this.data.authoToken
@@ -63,6 +73,7 @@ Page({
           }
         }
       })
+      )
     }
   },
   performClickWatch: function (e) {
@@ -93,7 +104,7 @@ Page({
         watchLoading: true,
         watchDisable: true
       })
-      wx.request({
+      rTaskList.push(wx.request({
         url: watchU,
         method: "PUT",
         header: {
@@ -118,7 +129,7 @@ Page({
             })
           }
         }
-      })
+      }) )
     }
   },
   unWatchRepository: function () {
@@ -134,7 +145,7 @@ Page({
         watchLoading: true,
         watchDisable: true
       })
-      wx.request({
+      rTaskList.push(wx.request({
         url: watchU,
         method: "DELETE",
         header: {
@@ -160,14 +171,14 @@ Page({
           }
 
         }
-      })
+      }) )
     }
   },
   checkIsStarRepo: function () {
     const baseUrl = appInstance.globalData.gitHubApiBaseUrl
     const checkUrl = this.data.starUrl
     if (this.data.authoToken) {
-      wx.request({
+      rTaskList.push(wx.request({
         url: checkUrl,
         header: {
           "Authorization": this.data.authoToken
@@ -189,7 +200,7 @@ Page({
             console.log("未授权")
           }
         }
-      })
+      }) )
     }
 
   },
@@ -226,7 +237,7 @@ Page({
         starLoading: true,
         starDisable: true
       })
-      wx.request({
+      rTaskList.push( wx.request({
         url: starU,
         method: "PUT",
         header: {
@@ -252,7 +263,7 @@ Page({
           }
 
         }
-      })
+      }) )
     }
 
   },
@@ -269,7 +280,7 @@ Page({
         starLoading: true,
         starDisable: true
       })
-      wx.request({
+      rTaskList.push( wx.request({
         url: starU,
         method: "DELETE",
         header: {
@@ -295,7 +306,7 @@ Page({
           }
 
         }
-      })
+      }) )
     }
 
   },
@@ -307,7 +318,7 @@ Page({
       //检查是否star当前项目
       detailCtx.checkIsStarRepo()
       detailCtx.checkIsWatchRepo()
-      wx.request({
+      rTaskList.push( wx.request({
         url: detailUrl,
         header: {
           "Authorization": authoToken
@@ -324,9 +335,9 @@ Page({
             watchCount: repoBean.subscribers_count
           })
         }
-      })
+      }) )
     } else {
-      wx.request({
+      rTaskList.push(wx.request({
         url: detailUrl,
         success: function (res) {
           wx.hideLoading()
@@ -340,9 +351,18 @@ Page({
             watchCount: repoBean.subscribers_count
           })
         }
-      })
+      }) )
     }
 
+  },
+  onHide:function(){
+    const length = rTaskList.length
+    for (let j = 0; j < length; j++) {
+      if (rTaskList[j]){
+        rTaskList[j].abort()
+      }
+      
+    }
   },
   onLoad: function () {
     wx.setNavigationBarTitle({
@@ -376,7 +396,7 @@ Page({
     //获取仓库详情信息
     if (oauthTokenValue){
       
-      wx.request({
+      rTaskList.push( wx.request({
         url: detailUrl,
         header: {
           "Authorization": oauthTokenValue
@@ -393,9 +413,9 @@ Page({
             watchCount: repoBean.subscribers_count
           })
         }
-      })
+      }) )
     }else{
-      wx.request({
+      rTaskList.push(wx.request({
         url: detailUrl,
         success: function (res) {
           wx.hideLoading()
@@ -409,7 +429,7 @@ Page({
             watchCount: repoBean.subscribers_count
           })
         }
-      })
+      }) )
     }
     
 
@@ -422,7 +442,7 @@ Page({
 * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
 */
     //获取仓库readme信息
-    wx.request({
+    rTaskList.push( wx.request({
       url: readMeUrl,
       success: function (res) {
         if (res.statusCode == 200) {
@@ -431,7 +451,7 @@ Page({
           }
         }
       }
-    })
+    }) )
 
   }
 })

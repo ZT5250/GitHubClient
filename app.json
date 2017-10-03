@@ -7,7 +7,8 @@
     "pages/personal/myRepositories/myRepolist",
     "pages/personal/myStars/myStarList",
     "pages/followers/users",
-    "pages/followings/users"
+    "pages/followings/users",
+    "pages/personal/userprofile/userprofile"
   ],
   "tabBar": {
     "selectedColor": "#333333",

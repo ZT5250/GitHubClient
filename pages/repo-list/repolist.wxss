@@ -1,3 +1,6 @@
+page{
+background-color:#f9f9f9;
+}
 .repo-list{
   display: flex;
   width:100%;
@@ -9,9 +12,8 @@
 
 .repo-item{
   width:90%;
-  margin-left:2.7%;
+  margin-left:2.3%;
   padding:8px;
-  box-shadow: 1px 1px 6px #cccccc;
   margin-top:10px;
   margin-bottom:10px;
   background-color: #ffffff;

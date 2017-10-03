@@ -2,6 +2,7 @@ var page = 1, perpage = 50;
 const githubService = require("../../utils/githubservice.js")
 const app = getApp();  //获取微信小程序实例
 var pageCtx = null;
+var requestTask = null
 Page({
 
   /**
@@ -12,13 +13,17 @@ Page({
     followersUrl:"",
     oauthToken:""
   },
-
+  showUserInfo: function (res) {
+    wx.navigateTo({
+      url: '../personal/userprofile/userprofile?userName=' + res.currentTarget.dataset.ownername,
+    })
+  },
 loadeFollowers:function(){
   wx.showNavigationBarLoading() //在标题栏中显示加载
   wx.setNavigationBarTitle({
     title: 'loading',
   })
-  wx.request({
+  requestTask = wx.request({
     url: pageCtx.data.followersUrl + "?page=" + page + "&per_page=" + perpage,
     header: {
       "Authorization": pageCtx.data.oauthToken
@@ -88,14 +93,16 @@ loadeFollowers:function(){
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    pageCtx = this;
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    
+    if (requestTask != null) {
+      requestTask.abort();
+    }
   },
 
   /**

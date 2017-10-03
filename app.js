@@ -3,6 +3,8 @@
 App({
   globalData: {
     userInfo: null,
+    gitHubUser:null,
+    viewGitHubUser:null,
     appID: "wxa65ef0fee336238a",
     appSecret: "72517e838d1c37765ca62d3b3c326363",
     gitHubApiBaseUrl: "https://api.github.com",

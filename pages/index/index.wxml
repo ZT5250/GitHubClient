@@ -1,11 +1,11 @@
 <!--index.wxml-->
 <view class="userinfo">
   <view class="profileHeader">
-    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    <image bindtap="showMyProfile" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
   </view>
 
   <view wx:if="{{basicAuthization && oauthToken}}" style="width:100%;text-align:center;">
-    <view style="display:flex;flex-wrap:wrap;width:100%;margin-top:20px;">
+    <view style="display:flex;flex-wrap:wrap;width:100%;padding-top:20px;background-color:#f9f9f9;">
 
       <view class="personalLabel" bindtap='myRepositories'>
         <view class="labelItem" style="width:78px;border-right:solid 1px #f2f2f2;">

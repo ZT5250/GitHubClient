@@ -1,7 +1,7 @@
 <view class="userList">
 
 <block wx:for="{{userList}}" wx:for-item="user" wx:key="id">
-  <view class="userItem">
+  <view class="userItem" bindtap='showUserInfo' data-ownername="{{user.login}}">
     <view class="userPic">
       <view class="userPicItem">
         <image class="userImg" src="{{user.avatar_url}}"></image>

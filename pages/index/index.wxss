@@ -1,8 +1,12 @@
 /**index.wxss**/
+page{
+  background-color: #f9f9f9;
+}
 .profileHeader{
   width:100%;text-align:center;
   box-shadow: 1px 1px 5px #cccccc;
   height: auto;
+  background-color: #ffffff;
 }
 .userinfo {
   /* display: flex;
@@ -44,9 +48,9 @@
   display: flex;
   flex-wrap:wrap;
   flex-direction: column;
-  width: 90%;
-  margin-left:5%;
-  margin-bottom:15px;
+  width: 96%;
+  margin-left:2%;
+  margin-bottom:10px;
   text-align: center;
   height: 90px;
   line-height: 90px;
@@ -54,7 +58,6 @@
   border: solid 1px #f7f7f7;
   background-color: #fefefe;
   box-sizing: border-box;
-  box-shadow: 1px 1px 6px #cccccc;
   
 }
 .labelItem{

@@ -2,62 +2,67 @@ var page = 1, perpage = 50;
 const githubService = require("../../utils/githubservice.js")
 const app = getApp();  //获取微信小程序实例
 var pageCtx = null;
+var requestTask = null
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userList:[],
-    followersUrl:"",
-    oauthToken:""
+    userList: [],
+    followersUrl: "",
+    oauthToken: ""
   },
-
-loadeFollowers:function(){
-  wx.showNavigationBarLoading() //在标题栏中显示加载
-  wx.setNavigationBarTitle({
-    title: '加载中',
-  })
-  wx.request({
-    url: pageCtx.data.followersUrl + "?page=" + page + "&per_page=" + perpage,
-    header: {
-      "Authorization": pageCtx.data.oauthToken
-    },
-    success: function (res) {
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.setNavigationBarTitle({
-        title: 'my followers',
-      })
-
-      var userlist = res.data;
-      if (userlist.length == 0) {
-        if (page > 1) {
-          page--;
-        }
-        wx.showToast({
-          title: 'no more data',
-          icon: 'success',
-          duration: 1200
+  showUserInfo: function (res) {
+    wx.navigateTo({
+      url: '../personal/userprofile/userprofile?userName=' + res.currentTarget.dataset.ownername,
+    })
+  },
+  loadeFollowers: function () {
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.setNavigationBarTitle({
+      title: '加载中',
+    })
+    requestTask = wx.request({
+      url: pageCtx.data.followersUrl + "?page=" + page + "&per_page=" + perpage,
+      header: {
+        "Authorization": pageCtx.data.oauthToken
+      },
+      success: function (res) {
+        wx.hideNavigationBarLoading() //完成停止加载
+        wx.setNavigationBarTitle({
+          title: 'my followers',
         })
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 300)
-      } else {
-        wx.hideLoading()
-        if (page > 1) {
-          pageCtx.setData({
-            userList: pageCtx.data.userList.concat(userlist)
+
+        var userlist = res.data;
+        if (userlist.length == 0) {
+          if (page > 1) {
+            page--;
+          }
+          wx.showToast({
+            title: 'no more data',
+            icon: 'success',
+            duration: 1200
           })
+          setTimeout(function () {
+            wx.hideLoading()
+          }, 300)
         } else {
-          pageCtx.setData({
-            userList: userlist
-          })
+          wx.hideLoading()
+          if (page > 1) {
+            pageCtx.setData({
+              userList: pageCtx.data.userList.concat(userlist)
+            })
+          } else {
+            pageCtx.setData({
+              userList: userlist
+            })
+          }
         }
+
       }
-      
-    }
-  })
-},
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -87,21 +92,23 @@ loadeFollowers:function(){
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    pageCtx = this;
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    
+    if (requestTask!=null){
+      requestTask.abort();
+    }
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    
+
   },
 
 
@@ -109,17 +116,17 @@ loadeFollowers:function(){
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    if (pageCtx.data.userList==perpage){
+    if (pageCtx.data.userList == perpage) {
       page++;
       pageCtx.loadeFollowers();
     }
-    
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+
   }
 })

@@ -18,7 +18,7 @@
           <view class="labelText">
             fork : {{repo.forks}}</view>
         </view>
-        <text style="display:flex;font-size:12px;margin-bottom:20px;">
+        <text style="display:flex;font-size:12px;margin-bottom:20px;padding-right:8px;">
         {{repo.description}}
         </text>
         <view style="display:flex;">

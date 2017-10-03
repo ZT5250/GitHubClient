@@ -19,6 +19,12 @@ Page({
     basicAuthization: null,
     oauthToken: null
   },
+  showMyProfile:function(){
+    const myUserName = wx.getStorageSync("userName");
+    wx.navigateTo({
+      url: '../personal/userprofile/userprofile?userName=' + myUserName,
+    })
+  },
   updateName: function (e) {
     thisCxt.setData({
       gitHubUserName: e.detail.value
@@ -108,9 +114,13 @@ Page({
     })
   },
   myRepositories: function () {
+    const myUserName = wx.getStorageSync("userName");
     wx.navigateTo({
-      url: '../personal/myRepositories/myRepolist',
+      url: '../personal/userprofile/userprofile?userName=' + myUserName,
     })
+    // wx.navigateTo({
+    //   url: '../personal/myRepositories/myRepolist',
+    // })
   },
   myStars: function () {
     wx.navigateTo({
@@ -126,6 +136,9 @@ Page({
     wx.navigateTo({
       url: '../followings/users',
     })
+  },
+  onShow:function(res){
+    thisCxt = this
   },
   onReady: function () {
     //从本地存储中获取basic auth数据
@@ -143,7 +156,7 @@ Page({
         },
         success: function (res) {
           wx.hideLoading()
-          console.dir(res);
+          app.globalData.gitHubUser = res.data;
           wx.setStorageSync("userName", res.data.login);
           thisCxt.setData({
             userInfo: {
@@ -185,7 +198,7 @@ Page({
         },
         success: function (res) {
           wx.hideLoading()
-          console.dir(res);
+          app.globalData.gitHubUser = res.data;
           wx.setStorageSync("userName", res.data.login);
           thisCxt.setData({
             userInfo: {

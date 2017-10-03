@@ -1,5 +1,10 @@
 const baseurl ="https://api.github.com/";
 
+
+const userInfoUrl = userName => {
+  return baseurl + "users/" + userName
+}
+
 //获取制定用户的star列表
 const userStarListUrl = login => {
   return baseurl + "users/" + login+"/starred";
@@ -24,5 +29,6 @@ module.exports = {
   userStarUrl: userStarListUrl,
   userRepoUrl : userRepoListUrl,
   userFollowersUrl: userFollowerListUrl,
-  userFollowingsUrl: userFollowingListUrl
+  userFollowingsUrl: userFollowingListUrl,
+  userUrl: userInfoUrl
 }
