@@ -39,7 +39,7 @@
   box-sizing: border-box;
   z-index: 2;
 }
-.footerTab{
+.footerTabBtn{
   width: calc( 50% - 2px );
   height: 48px;
   line-height: 50px;
@@ -47,7 +47,19 @@
   text-align: center;
   margin:1px;
   float: left;
+  display: flex;
+  flex-wrap: wrap;
 }
+.btnItem{
+  flex-direction: row;
+  height: 48px;
+  line-height: 50px;
+  vertical-align: middle;
+  text-align: center;
+  /* border: solid 1px #cccccc; */
+  box-sizing: border-box;
+}
+
 .tabHover{
   font-weight: bolder;
   font-size: 20px;

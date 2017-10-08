@@ -18,7 +18,7 @@
 
   <view class="scrollContainer">
     <block wx:if="{{listType==1}}">
-    <view class="repo-list">
+    <view class="repo-list" style="min-height:{{repoHeight}};">
       <block wx:for="{{listData}}" wx:for-item="repo" wx:key="id">
         <view class="repo-item" bindtap='showRepoDetail' id="{{repo.url+';'+repo.full_name}}" hover-class="repo-hover">
           <view style="margin-bottom:5px;font-size:16px;">{{repo.full_name}}</view>
@@ -45,19 +45,15 @@
     </block>
 
     <block wx:else>
-    <view class="userList">
+    <view class="userList"  style="min-height:{{repoHeight}};">
       <block wx:for="{{listData}}" wx:for-item="user" wx:key="id">
-        <view class="userItem" bindtap='showUserInfo' data-ownername="{{user.login}}">
-          <view class="userPic">
+          <view class="userPic" bindtap='showUserInfo' data-ownername="{{user.login}}">
             <view class="userPicItem">
               <image class="userImg" src="{{user.avatar_url}}"></image>
             </view>
             <view class="userPicItem">
-              <view style="display:flex;flex-wrap:wrap;">
-                <view style="flex:column;width:100%;text-align: center;">{{user.login}}</view>
-              </view>
+              {{user.login}}
             </view>
-          </view>
         </view>
       </block>
       </view>

@@ -107,18 +107,9 @@ Page({
     })
     this.loadRepoList(queryKey);
     var appContent = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        console.log(res.model)
-        console.log(res.pixelRatio)
-        console.log(res.screenHeight)
-        console.log(res.screenWidth)
-        appContent.setData({
-          scrollHeight: (res.screenHeight - 50) + "px"
-        });
-        console.log(res.language)
-        console.log(res.version)
-      }
-    })
+    
+    appContent.setData({
+      scrollHeight: (app.globalData.sysInfo.windowHeight - 50) + "px"
+    });
   }
 })

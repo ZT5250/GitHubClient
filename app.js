@@ -2,6 +2,7 @@
 
 App({
   globalData: {
+    sysInfo:null,
     userInfo: null,
     gitHubUser:null,
     viewGitHubUser:null,
@@ -28,18 +29,21 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
+    //记录系统信息
+    wx.getSystemInfo({
+      success: function (res) {
+        appContext.globalData.sysInfo = res
+      }
+    })
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.dir(res);
         //到后台换取openId, sessionKey, unionId
         const openIdUrl = appContext.initOpenIdUrl(res.code);
         wx.request({
           url: openIdUrl,
           success: function (res) {
-            console.dir(res);
             const opendata = res.data
             appContext.globalData.openID = opendata.openid
             appContext.globalData.sessionKey = opendata.session_key

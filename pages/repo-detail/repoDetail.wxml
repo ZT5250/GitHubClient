@@ -5,9 +5,10 @@
   <view class="repoHeader" style="min-height:{{headerHeight}};height{{headerHeight}}">
     <text class="repoFullName" style="font-size:30px;margin-top:10px;margin-bottom:10px;">{{repoFullName}}</text>
     <view class="clearFix"></view>
-
-    <image bindtap='showUserInfo' style="width: 25px; height: 25px;border-radius:50%;margin-right:20px;" lazy-load="true" src="{{ownerPic}}"></image>
-    <text bindtap='showUserInfo'>{{ownerName}}</text>
+    <view style='display:flex;flex-wrap:wrap;height:34px;line-height:34px;vertical-align:middle;'>
+      <image bindtap='showUserInfo' style="width: 25px; height: 25px;flex-direction:row;" lazy-load="true" src="{{ownerPic}}"></image>
+      <text bindtap='showUserInfo' style='flex-direction:row;height:25px;line-height:25px;vertica-align:middle;box-sizing:border-box;box-shadow:1px 1px 1px #eeeeee;padding-left:5px;padding-right:5px;'>{{ownerName}}</text>
+    </view>
     <view class="clearFix"></view>
   </view>
 
@@ -17,7 +18,10 @@
   </view>
 
   <view class="repFooter">
-    <button loading="{{starLoading}}" disabled="{{starDisable}}" class="footerTab" bindtap='performClickStar' data-status="{{starStatus}}">{{starStatus==0?"star":"unstar"}} {{stargazersCount}}</button> 
-    <button class="footerTab" loading="{{watchLoading}}" disabled="{{watchDisable}}"  bindtap="performClickWatch" data-status="{{watchStatus}}">{{watchStatus==0?"watch":"unwatch"}} {{watchCount}}</button>
+    <button loading="{{starLoading}}" disabled="{{starDisable}}" class="footerTabBtn" bindtap='performClickStar' data-status="{{starStatus}}">{{starStatus==0?"star":"unstar"}} {{stargazersCount}}</button>
+    <button class="footerTabBtn" loading="{{watchLoading}}" disabled="{{watchDisable}}" bindtap="performClickWatch" data-status="{{watchStatus}}">
+    <view class="btnItem" style="">{{watchStatus==0?"watch":"unwatch"}}</view>
+    <view class="btnItem" style="padding-left:5px;padding-right:5px;">{{watchCount}}</view>
+    </button>
   </view>
 </view>

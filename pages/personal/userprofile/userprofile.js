@@ -16,17 +16,18 @@ Page({
     userUrl: "",
     gitHubUserInfo: null,
     currentListUrl: "",
+    repoHeight: "200px",
     listData: [],
     listType: 1,
+    loadTabType:0,
     headerStyle: "relative"
   },
   tabClick: function (opt) {
     const length = requestList.length
     for (let j = 0; j < length; j++) {
-      if (requestList[j]){
+      if (requestList[j]) {
         requestList[j].abort()
       }
-      
     }
     const dataSet = opt.currentTarget.dataset;
     var tabActive = [false, false, false, false]
@@ -60,7 +61,8 @@ Page({
   loadList: function (res) {
     const listUrl = this.data.currentListUrl
     const oauthToken = this.data.oauthToken;
-    if (oauthToken) {
+    console.log(listUrl)
+    if (oauthToken && listUrl) {
       requestList.push(wx.request({
         url: listUrl + "?page=" + page + "&per_page=" + perpage,
         header: {
@@ -96,37 +98,40 @@ Page({
         }
       }))
     } else {
-      requestList.push(wx.request({
-        url: listUrl + "?page=" + page + "&per_page=" + perpage,
-        success: function (res) {
-          if (res.statusCode == 200) {
-            const list = res.data;
-            if (list.length == 0) {
+      if (listUrl){
+        requestList.push(wx.request({
+          url: listUrl + "?page=" + page + "&per_page=" + perpage,
+          success: function (res) {
+            if (res.statusCode == 200) {
+              const list = res.data;
+              if (list.length == 0) {
+                if (page > 1) {
+                  page--;
+                }
+                setTimeout(function () {
+                  wx.hideLoading()
+                }, 300)
+              } else {
+                wx.hideLoading()
+              }
+              if (page > 1) {
+                pageCtx.setData({
+                  listData: pageCtx.data.listData.concat(list)
+                })
+              } else {
+                pageCtx.setData({
+                  listData: list
+                })
+              }
+            } else {
               if (page > 1) {
                 page--;
               }
-              setTimeout(function () {
-                wx.hideLoading()
-              }, 300)
-            } else {
-              wx.hideLoading()
-            }
-            if (page > 1) {
-              pageCtx.setData({
-                listData: pageCtx.data.listData.concat(list)
-              })
-            } else {
-              pageCtx.setData({
-                listData: list
-              })
-            }
-          } else {
-            if (page > 1) {
-              page--;
             }
           }
-        }
-      }))
+        }))
+      }
+      
     }
 
   },
@@ -156,6 +161,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log("---------------------");
+    console.dir(options);
     pageCtx = this;
     const userUrl = githubService.userUrl(options.userName)
     const oauthToken = wx.getStorageSync('AuthToken') || null
@@ -164,6 +171,19 @@ Page({
       userUrl: userUrl,
       oauthToken: oauthToken
     })
+    if (options.tabType) {
+      this.data.loadTabType=options.tabType
+      var opt = {
+        currentTarget: {
+          dataset: { 
+            tabtype: options.tabType ,
+            url: options.url,
+            datatype: options.datatype
+            }
+        }
+      };
+      this.tabClick(opt);
+    }
   },
 
   /**
@@ -184,10 +204,16 @@ Page({
           uInfo.starred_url = githubService.userStarUrl(uInfo.login);
           uInfo.followers_url = githubService.userFollowersUrl(uInfo.login);
           uInfo.following_url = githubService.userFollowingsUrl(uInfo.login);
+          const loadUrl = [uInfo.repos_url, uInfo.starred_url, uInfo.followers_url, uInfo.following_url];
+          const targeUrl = loadUrl[pageCtx.data.loadTabType]
+          console.log(loadUrl)
+          console.log(pageCtx.data.loadTabType)
+          console.log(targeUrl)
           pageCtx.setData({
             gitHubUserInfo: uInfo,
-            currentListUrl: uInfo.repos_url
+            currentListUrl: targeUrl
           })
+          pageCtx.data.currentListUrl=targeUrl
           pageCtx.loadList();
         }
       })
@@ -200,10 +226,15 @@ Page({
           uInfo.starred_url = githubService.userStarUrl(uInfo.login);
           uInfo.followers_url = githubService.userFollowersUrl(uInfo.login);
           uInfo.following_url = githubService.userFollowingsUrl(uInfo.login);
+          const loadUrl = [uInfo.repos_url, uInfo.starred_url, uInfo.followers_url, uInfo.following_url];
+          console.log(loadUrl)
+          console.log(pageCtx.data.loadTabType)
+          const targeUrl = loadUrl[pageCtx.data.loadTabType]
           pageCtx.setData({
             gitHubUserInfo: uInfo,
-            currentListUrl: uInfo.repos_url
+            currentListUrl: targeUrl
           })
+          pageCtx.data.currentListUrl = targeUrl
           pageCtx.loadList();
         }
       })
@@ -218,6 +249,10 @@ Page({
     requestList = []
     this.loadList();
     pageCtx = this;
+    const windH = app.globalData.sysInfo.windowHeight;
+    pageCtx.setData({
+      repoHeight: (windH + 28) + "px"
+    })
   },
 
   /**
@@ -226,10 +261,10 @@ Page({
   onHide: function () {
     const length = requestList.length
     for (let i = 0; i < length; i++) {
-      if (requestList[i]){
+      if (requestList[i]) {
         requestList[i].abort()
       }
-      
+
     }
   },
 

@@ -3,6 +3,7 @@ const util = require('../../utils/util.js')
 //获取应用实例
 const app = getApp()
 var thisCxt = null;
+var userName = null;
 Page({
   data: {
     motto: 'Hello World',
@@ -56,86 +57,115 @@ Page({
       return
     }
     var tokenParams = app.globalData.createTokenParams
-    tokenParams.note = "wechatApp-" + util.formatTime(new Date())
-
-    const basicAuthor = "Basic " + util.base64Encode(this.data.gitHubUserName + ":" + this.data.gitHubUserPassword)
-    console.log(this.data.gitHubUserName + ":" + this.data.gitHubUserPassword);
-    const baseUrl = app.globalData.gitHubApiBaseUrl;
-    const authUrl = baseUrl+ "/authorizations"
-    util.formatTime(new Date())
-    wx.request({
-      url: authUrl,
-      method: "POST",
-      dataType: "JSON",
-      header: {
-        "Authorization": basicAuthor
-      },
-      data: tokenParams,
+    wx.getSystemInfo({
       success: function (res) {
-        const resData = res.data;
-        const resDataBean = JSON.parse(resData);
-        console.dir(resDataBean);
-        if (resDataBean.token) {
-          wx.hideLoading()
-          wx.setStorageSync("basicToken", basicAuthor);
-          wx.setStorageSync("AuthToken", "token " + resDataBean.token);
-          thisCxt.setData({
-            basicAuthization: basicAuthor,
-            oauthToken: resDataBean.token
-          });
-          //获取用户信息
-          wx.request({
-            url: baseUrl + "/user",
-            header: {
-              "Authorization": basicAuthor
-            },
-            success: function (res) {
-              wx.setStorageSync("userName", res.data.login);
-              thisCxt.setData({
-                userInfo: {
-                  avatarUrl: res.data.avatar_url,
-                  publicRepoCount: res.data.public_repos,
-                  followerCount: res.data.followers,
-                  followingCount: res.data.following
-                },
-              })
-            }
-          })
-        } else {
-          wx.showToast({
-            title: '用户名或密码错误',
-          })
-          setTimeout(function () {
-            wx.hideLoading()
-          }, 1000)
-        }
+        console.dir(res)
+        tokenParams.note = "wechatApp-" + res.model+"-" + util.formatTime(new Date())
 
+        const basicAuthor = "Basic " + util.base64Encode(thisCxt.data.gitHubUserName + ":" + thisCxt.data.gitHubUserPassword)
+        const baseUrl = app.globalData.gitHubApiBaseUrl;
+        const authUrl = baseUrl + "/authorizations"
+        util.formatTime(new Date())
+        wx.request({
+          url: authUrl,
+          method: "POST",
+          dataType: "JSON",
+          header: {
+            "Authorization": basicAuthor
+          },
+          data: tokenParams,
+          success: function (res) {
+            const resData = res.data;
+            const resDataBean = JSON.parse(resData);
+            console.dir(resDataBean);
+            if (resDataBean.token) {
+              wx.hideLoading()
+              wx.setStorageSync("basicToken", basicAuthor);
+              wx.setStorageSync("AuthToken", "token " + resDataBean.token);
+              thisCxt.setData({
+                basicAuthization: basicAuthor,
+                oauthToken: resDataBean.token
+              });
+              //获取用户信息
+              wx.request({
+                url: baseUrl + "/user",
+                header: {
+                  "Authorization": basicAuthor
+                },
+                success: function (res) {
+                  wx.setStorageSync("userName", res.data.login);
+                  thisCxt.setData({
+                    userInfo: {
+                      avatarUrl: res.data.avatar_url,
+                      publicRepoCount: res.data.public_repos,
+                      followerCount: res.data.followers,
+                      followingCount: res.data.following
+                    },
+                  })
+                }
+              })
+            } else {
+              wx.showToast({
+                title: '用户名或密码错误',
+              })
+              setTimeout(function () {
+                wx.hideLoading()
+              }, 1000)
+            }
+
+          }
+        })
       }
     })
+    
   },
   myRepositories: function () {
-    const myUserName = wx.getStorageSync("userName");
+    if (userName==null){
+      userName = wx.getStorageSync("userName");
+    }
+    const url = 'https://api.github.com/users/' + userName + '/repos'
     wx.navigateTo({
-      url: '../personal/userprofile/userprofile?userName=' + myUserName,
+      url: '../personal/userprofile/userprofile?userName=' + userName + '&tabType=0&datatype=1&url=' + url,
     })
     // wx.navigateTo({
     //   url: '../personal/myRepositories/myRepolist',
     // })
   },
   myStars: function () {
+    if (userName == null) {
+      userName = wx.getStorageSync("userName");
+    }
+    const url = 'https://api.github.com/users/' + userName + '/starred'
     wx.navigateTo({
-      url: '../personal/myStars/myStarList',
+      url: '../personal/userprofile/userprofile?userName=' + userName + '&tabType=1&datatype=1&url=' + url,
     })
+    // wx.navigateTo({
+    //   url: '../personal/myStars/myStarList',
+    // })
   },
   myFollowers: function (option) {
+    if (userName == null) {
+      userName = wx.getStorageSync("userName");
+    }
+    const url = 'https://api.github.com/users/' + userName + '/followers'
     wx.navigateTo({
-      url: '../followers/users',
+      url: '../personal/userprofile/userprofile?userName=' + userName + '&tabType=2&datatype=2&url=' + url,
     })
+    // wx.navigateTo({
+    //   url: '../followers/users',
+    // })
   },
   myFollowings: function (option) {
+    if (userName == null) {
+      userName = wx.getStorageSync("userName");
+    }
+    const url = 'https://api.github.com/users/' + userName+'/following'
     wx.navigateTo({
-      url: '../followings/users',
+      url: '../personal/userprofile/userprofile?userName=' + userName + '&tabType=3&datatype=2&url=' + url,
     })
+    // wx.navigateTo({
+    //   url: '../followings/users',
+    // })
   },
   onShow:function(res){
     thisCxt = this
