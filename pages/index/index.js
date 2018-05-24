@@ -59,7 +59,7 @@ Page({
     var tokenParams = app.globalData.createTokenParams
     wx.getSystemInfo({
       success: function (res) {
-        console.dir(res)
+
         tokenParams.note = "wechatApp-" + res.model+"-" + util.formatTime(new Date())
 
         const basicAuthor = "Basic " + util.base64Encode(thisCxt.data.gitHubUserName + ":" + thisCxt.data.gitHubUserPassword)
