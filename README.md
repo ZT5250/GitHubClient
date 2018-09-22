@@ -9,7 +9,7 @@
 
 ## 项目详情页面
 ---
-![detail](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_DDFD21C3278A-1.jpeg?raw=true)
+![detail](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_C9FDB40DED94-1.jpeg)
 
 ## 登录界面
 ---
