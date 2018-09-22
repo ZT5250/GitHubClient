@@ -1,9 +1,9 @@
 # GitHubClient
-![pic1](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_0495.PNG?raw=true)
+![pic1](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_0495.PNG)
 
-![pic2](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_0496.PNG?raw=true)
+![pic2](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_0496.PNG)
 
-![pic3](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_0497.PNG?raw=true)
+![pic3](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_0497.PNG)
 
 ![pic4](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_0498.PNG?raw=true)
 
