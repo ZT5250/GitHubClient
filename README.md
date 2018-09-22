@@ -7,6 +7,10 @@
 ---
 ![pic2](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_0496.PNG)
 
+## 项目详情页面
+---
+![detail](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_DDFD21C3278A-1.jpeg?raw=true)
+
 ## 登录界面
 ---
 ![pic3](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_0497.PNG)
