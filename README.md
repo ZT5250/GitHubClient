@@ -1,7 +1,7 @@
 # GitHubClient
 ## 首页，默认以java为关键字搜索项目
 ----
-![pic1](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_0495.PNG=200x?raw=true&)
+![pic1](https://github.com/ZT5250/GitHubClient/blob/master/githubAppPic/IMG_0495.PNG=200x?raw=true)
 
 ## 搜索redis相关的开源项目
 ---
